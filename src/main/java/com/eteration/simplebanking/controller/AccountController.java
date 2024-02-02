@@ -38,7 +38,7 @@ public class AccountController {
     }
 
     @PostMapping("/debit/{accountNumber}")
-    public ResponseEntity<TransactionStatus> debit(@PathVariable String accountNumber, @RequestBody WithdrawalTransactionRequest withdrawalTransactionRequest) throws Exception {
+    public ResponseEntity<TransactionStatus> debit(@PathVariable String accountNumber,@Valid @RequestBody WithdrawalTransactionRequest withdrawalTransactionRequest) throws Exception {
         WithdrawalTransaction withdrawalTransaction = accountService.debit(accountNumber,withdrawalTransactionRequest);
         return ResponseEntity.ok(TransactionStatus.builder().status("OK").approvalCode(withdrawalTransaction.getApprovalCode()).build());
     }
