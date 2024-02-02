@@ -4,10 +4,8 @@ import com.eteration.simplebanking.dto.DepositTransactionRequest;
 import com.eteration.simplebanking.dto.WithdrawalTransactionRequest;
 import com.eteration.simplebanking.model.Account;
 import com.eteration.simplebanking.model.DepositTransaction;
-import com.eteration.simplebanking.exception.InsufficientBalanceException;
 import com.eteration.simplebanking.model.WithdrawalTransaction;
 import com.eteration.simplebanking.services.AccountService;
-import com.eteration.simplebanking.services.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +22,6 @@ import javax.validation.constraints.NotNull;
 public class AccountController {
 
     private final AccountService accountService;
-    private final TransactionService transactionService;
 
     @GetMapping("/{accountNumber}")
     public ResponseEntity<Account> getAccount(@PathVariable String accountNumber) {
