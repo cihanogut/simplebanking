@@ -36,7 +36,6 @@ public class AccountService {
             DepositTransaction depositTransaction = new DepositTransaction();
             depositTransaction.setAccount(account);
             depositTransaction.setAmount(depositTransactionRequest.getAmount());
-            depositTransaction.setType(Type.DepositTransaction);
             account.post(depositTransaction);
             repository.save(account);
 
@@ -53,7 +52,6 @@ public class AccountService {
             WithdrawalTransaction withdrawalTransaction = new WithdrawalTransaction();
             withdrawalTransaction.setAccount(account);
             withdrawalTransaction.setAmount(withdrawalTransactionRequest.getAmount());
-            withdrawalTransaction.setType(Type.WithdrawalTransaction);
             account.post(withdrawalTransaction);
             repository.save(account);
 

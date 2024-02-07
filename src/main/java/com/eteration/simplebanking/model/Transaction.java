@@ -25,18 +25,31 @@ public abstract class Transaction {
     @JsonIgnore
     private Long id;
 
-    private LocalDateTime date = LocalDateTime.now();
+    private LocalDateTime date;
 
-    @Enumerated(value = EnumType.STRING)
-    private Type type;
+    @Column(name = "amount")
+    private double amount;
+
+    @Column(name ="transaction_type" , insertable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
+    private Type transactionType;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @PrePersist
+    public void onCreate(){
+        this.date = LocalDateTime.now();
+    }
+
    public void apply(Account account) throws InsufficientBalanceException {
         account.addTransaction(this);
+    }
+
+    public Transaction(double amount){
+       this.amount = amount;
     }
 }
 

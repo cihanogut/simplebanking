@@ -19,16 +19,14 @@ public class WithdrawalTransaction extends Transaction {
     @Column(name = "approvalCode")
     private UUID approvalCode = UUID.randomUUID();
 
-    @Column(name = "amount")
-    private double amount;
-
     public WithdrawalTransaction(double amount) {
-        this.amount = amount;
+        super(amount);
     }
 
     @Override
     public void apply(Account account) throws InsufficientBalanceException {
-        account.withdraw(amount);
+        account.withdraw(this.getAmount());
+        account.getTransactions().add(this);
     }
 }
 
